@@ -1,4 +1,5 @@
-import mongoose, {Schema} from mongoose;
+const mongoose = require('mongoose');
+// import mongoose, {Schema} from mongoose;
 
 
 const studentSchema = new Schema(
@@ -34,4 +35,6 @@ const studentSchema = new Schema(
     }
 )
 
-export const student = mongoose.model("student", studentSchema)
+// export const student = mongoose.model("student", studentSchema)
+const student = new mongoose.model("student", studentSchema);
+module.exports=student;  //export the model so it can be used in other files

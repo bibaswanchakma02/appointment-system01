@@ -1,7 +1,11 @@
-import express from "express";
+const express = require('express');
+// import express from "express";
 
 const app = express();
 
-//routes
+//ROUTES
 
-export {app};
+//home route
+
+// export default app;
+module.exports = app;
