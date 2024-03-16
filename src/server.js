@@ -2,6 +2,8 @@ require('dotenv').config()
 const app = require('./app')
 const connectDB = require('./db/index')
 
+
+
 // import 'dotenv/config'
 // import connectDB from './db/index.js';
 // import app from './app.js';
