@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 // import mongoose, {Schema} from mongoose;
 
 
-const studentSchema = new Schema(
+const studentSchema = new mongoose.Schema(
     {
         username: {
             type: String,
@@ -12,17 +12,16 @@ const studentSchema = new Schema(
 
         },
 
-        name:{
-            type: String,
-            required: true,
-            unique: true,
-            lowercase: true,
-        },
+        // name:{
+        //     type: String,
+        //     required: true,
+        //     unique: true,
+        //     lowercase: true,
+        // },
 
         email:{
             type: String,
             required: true,
-            unique:true,
             lowercase:true,
         },
         password:{

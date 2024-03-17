@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 
-const teacherSchema = new Schema(
+const teacherSchema = new mongoose.Schema(
     {
         username: {
             type: String,
@@ -11,17 +11,17 @@ const teacherSchema = new Schema(
 
         },
 
-        name:{
-            type: String,
-            required: true,
-            unique: true,
-            lowercase: true,
-        },
+        // name:{
+        //     type: String,
+        //     required: true,
+        //     unique: true,
+        //     lowercase: true,
+        // },
         
-        subject:{
-            type:String,
-            required:true,
-        },
+        // subject:{
+        //     type:String,
+        //     required:true,
+        // },
 
         email:{
             type: String,

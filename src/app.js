@@ -1,10 +1,13 @@
 const express = require('express')
 const app = express()
-var path = require('path')
-var indexRouter = require('./routes/index'); 
+const path = require('path')
+const indexRouter = require('./routes/index')
+const bodyParser = require('body-parser')
 
 
 
+app.use(express.json());
+app.use(bodyParser.urlencoded( { extended: false} ))
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 

@@ -12,7 +12,7 @@ const connectDB = require('./db/index')
 //     res.send("test 69")
 // })
 
-connectDB()
+const server = connectDB()
 .then(()=>{
     app.listen(process.env.PORT || 3000, ()=>{
         console.log(`server is running at port : ${process.env.PORT}`);
@@ -21,6 +21,8 @@ connectDB()
 .catch((err)=>{
     console.log("Mongodb connection failed! ", err);
 });
+
+module.exports = server;
 
 
  
