@@ -3,6 +3,7 @@ const router = express.Router();
 const studentSignup = require('../controllers/student.signup')
 const teacherSignup = require('../controllers/teacher.signup')
 
+//views routes
 router.get('/', function(req, res,next){
     res.render('index');
 })
