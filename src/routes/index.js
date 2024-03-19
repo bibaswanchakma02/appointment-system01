@@ -23,6 +23,10 @@ router.get('/teachersignup', function(req, res){
     res.render('teachersignup');
 } )
 
+router.get('/studentdashboard', function(req,res){
+    res.render('/studentdashboard');
+})
+
 //controller routes
 router.route('/studentsignup').post(studentSignup);
 router.route('/teachersignup').post(teacherSignup);
