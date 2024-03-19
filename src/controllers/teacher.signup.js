@@ -1,6 +1,5 @@
-const mongoose = require('mongoose')
 const teacher = require('../models/teacher.model')
-const bodyParser = require('body-parser');
+const bcrypt = require('bcryptjs');
 
 const teacherSignup = async(req, res) => {
     const {username ,email , password } = req.body;
@@ -11,17 +10,20 @@ const teacherSignup = async(req, res) => {
             return res.status(400).send('User already exists');
         }
 
+        //hash the password
+        const hashedPassword = await bcrypt.hash(password, 12);
+
         //create new user
         const newTeacher = new teacher(
             {
                 "username" : username, 
                 "email": email, 
-                "password" :password
+                "password" :hashedPassword
             });
             
         await newTeacher.save();
         res.render('teacherlogin');
-        console.log(req.body);
+        // console.log(req.body);
     } catch (error) {
         console.error(error);
         res.status(500).send('Internal Server Error');
