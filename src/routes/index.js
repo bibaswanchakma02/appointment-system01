@@ -25,7 +25,11 @@ router.get('/teachersignup', function(req, res){
 } )
 
 router.get('/studentdashboard', function(req,res){
-    res.render('/studentdashboard');
+    res.render('studentdashboard');
+})
+
+router.get('/teacherdashboard', function(req,res){
+    res.render('teacherdashboard');
 })
 
 //controller routes
