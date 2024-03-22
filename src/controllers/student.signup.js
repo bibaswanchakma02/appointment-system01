@@ -1,5 +1,5 @@
 const student = require('../models/student.model')
-const bcrypt = require('bcryptjs');
+// const bcrypt = require('bcryptjs');
 
 const studentSignup = async(req, res) => {
     const {username ,email , password } = req.body;
@@ -11,14 +11,14 @@ const studentSignup = async(req, res) => {
         }
 
         //hash the password
-        const hashedPassword = await bcrypt.hash(password, 12);
+        // const hashedPassword = await bcrypt.hash(password, 12);
 
         //create new user
         const newStudent = new student(
             {
                 "username" : username, 
                 "email": email, 
-                "password" :hashedPassword
+                "password" :password
             });
             
         await newStudent.save();
