@@ -1,5 +1,7 @@
 const student = require('../models/student.model')
+const appointment = require('../models/appointment.model')
 // const bcrypt = require('bcryptjs')
+
 
 const studentLogin = async(req,res)=>{
     const {email , password} = req.body;
@@ -15,9 +17,9 @@ const studentLogin = async(req,res)=>{
         const isMatch = await student.findOne({password})
         
         if(existingUser && isMatch){
-            res.status(200).send("successful login")
+            res.status(200).render('studentdashboard.ejs', {student: existingUser}) 
         }else{
-            res.send("invalid  username or password").status(401)
+            res.send("Inavalid Username or Password").status(401)
         }
         
     } catch (error) {
