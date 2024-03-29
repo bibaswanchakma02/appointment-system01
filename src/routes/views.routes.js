@@ -32,7 +32,7 @@ router.get('/teacherdashboard', (req,res)=>{
     res.render('teacherdashboard');
 })
 
-router.get('/studentdata', async (req, res) => {
+router.get('/studentsignin', async (req, res) => {
     try {
       const students = await studentModel.find(); // Fetch all students
       res.render('studentdashboard', { students }); // Render studentdashboard.ejs with students data
@@ -40,4 +40,11 @@ router.get('/studentdata', async (req, res) => {
         res.status(500).send('Error fetching data');
     }
 });
+
+router.post('/studentlogin', (req, res, next)=>{
+    const data = new studentModel({
+        email: req.body.email
+    })
+});
+
 module.exports = router;
