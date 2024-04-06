@@ -1,0 +1,98 @@
+<!-- request-appointment-form.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request Appointment</title>
+    <!-- Include Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f3f4f6;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            transition: border-color 0.3s;
+        }
+
+        .form-input:focus {
+            border-color: #4a90e2;
+            outline: none;
+        }
+
+        .form-label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+            color: #333333;
+        }
+
+        .form-submit {
+            background-color: #4a90e2;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .form-submit:hover {
+            background-color: #357db1;
+        }
+
+        .form-submit:focus {
+            outline: none;
+        }
+
+        ::placeholder {
+            color: #999999;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mx-auto mt-8">
+        <h1 class="text-2xl font-bold mb-4 text-center">Request Appointment</h1>
+        <form action="/appointment-request" method="POST" class="space-y-4">
+            <div>
+                <label for="teacherId" class="form-label">Teacher ID</label>
+                <input type="text" id="teacherId" required name="teacherId" class="form-input" placeholder="Enter Teacher ID...">
+            </div>
+            <div>
+                <label for="studentId" class="form-label">Student ID</label>
+                <input type="text" id="studentId" required name="studentId" class="form-input" placeholder="Enter Student ID...">
+            </div>
+            <div>
+                <label for="date" class="form-label">Date</label>
+                <input type="date" id="date" required name="date" class="form-input">
+            </div>
+            <div>
+                <label for="time" class="form-label">Time</label>
+                <input type="time" id="time" required name="time" class="form-input">
+            </div>
+            <div>
+                <label for="message" class="form-label">Message</label>
+                <textarea id="message" name="message" rows="4" class="form-input" placeholder="Enter your message..."></textarea>
+            </div>
+            <button type="submit" class="form-submit w-full">Submit</button>
+        </form>
+    </div>
+</body>
+</html>

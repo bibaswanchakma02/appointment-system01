@@ -1,23 +1,26 @@
 const student = require('../models/student.model')
 const appointment = require('../models/appointment.model')
-// const bcrypt = require('bcryptjs')
+const bcrypt = require('bcryptjs')
 
 
 const studentLogin = async(req,res)=>{
-    const {email , password} = req.body;
+    const {username , password} = req.body;
 
     try {
         //check if user exists in database
-        const existingUser = await student.findOne({email});
+        const existingUser = await student.findOne({username});
         if(!existingUser){
             res.status(401).send("Invalid username or password");
+            
         }
-        // const hashedPass = await student.findOne({password});
-        // const passwordMatch = await bcrypt.compare(password, hashedPass);
-        const isMatch = await student.findOne({password})
         
-        if(existingUser && isMatch){
-            res.status(200).render('studentdashboard.ejs', {student: existingUser}) 
+        const passwordMatch = await bcrypt.compare(password, existingUser.password);
+
+        if(existingUser && passwordMatch){
+            req.session.user = existingUser ;
+            req.session.isAuth = true;
+            res.status(200).redirect('/studentdashboard')
+            
         }else{
             res.send("Inavalid Username or Password").status(401)
         }
@@ -27,5 +30,7 @@ const studentLogin = async(req,res)=>{
         console.log(error);
     }
 }
+
+
 
 module.exports = studentLogin;

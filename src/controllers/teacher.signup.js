@@ -1,8 +1,8 @@
 const teacher = require('../models/teacher.model')
-// const bcrypt = require('bcryptjs');
+const bcrypt = require('bcryptjs');
 
 const teacherSignup = async(req, res) => {
-    const {username , name, email ,subject, password } = req.body;
+    const {username, name,id, email ,subject, password, } = req.body;
     try {
         //check for existing user
         const existingUser = await teacher.findOne({ $or: [{ email }, { username }] });
@@ -11,20 +11,21 @@ const teacherSignup = async(req, res) => {
         }
 
         //hash the password
-        // const hashedPassword = await bcrypt.hash(password, 12);
+        const hashedPassword = await bcrypt.hash(password, 12);
 
         //create new user
         const newTeacher = new teacher(
             {
                 "username" : username, 
                 "name":name,
+                "id":id,
                 "email": email, 
                 "subject":subject,
-                "password" :password,
+                "password" :hashedPassword,
             });
             
         await newTeacher.save();
-        res.render('teacherlogin');
+        res.redirect('/teacherlogin');
         // console.log(req.body);
     } catch (error) {
         console.error(error);

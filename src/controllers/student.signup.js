@@ -1,8 +1,8 @@
 const student = require('../models/student.model')
-// const bcrypt = require('bcryptjs');
+const bcrypt = require('bcryptjs');
 
 const studentSignup = async(req, res) => {
-    const {username ,email , password } = req.body;
+    const {username ,name, studentId, email , password } = req.body;
     try {
         //check for existing user
         const existingUser = await student.findOne({ $or: [{ email }, { username }] });
@@ -11,18 +11,20 @@ const studentSignup = async(req, res) => {
         }
 
         //hash the password
-        // const hashedPassword = await bcrypt.hash(password, 12);
+        const hashedPassword = await bcrypt.hash(password, 12);
 
         //create new user
         const newStudent = new student(
             {
-                "username" : username, 
+                "username" : username,
+                "name" : name,
+                "id" : studentId,
                 "email": email, 
-                "password" :password
+                "password" :hashedPassword
             });
             
         await newStudent.save();
-        res.render('studentlogin');
+        res.redirect('/studentlogin');
         //console.log(req.body)
     } catch (error) {
         console.error(error);

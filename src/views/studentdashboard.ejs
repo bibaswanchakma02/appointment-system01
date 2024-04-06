@@ -6,11 +6,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles for logout button */
+        .logout-button {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+        }
+    </style>
 </head>
 
 <body class="bg-gray-100">
     <div class="container mx-auto py-8">
-        <h1 class="text-3xl font-bold text-center mb-8"><%= student.username %> Dashboard</h1>
+        <h1 class="text-3xl font-bold text-center mb-8"> Welcome <%= student.username %></h1>
+        <form action="/logout" method="get" class="logout-button">
+            <button type="submit" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md">Logout</button>
+        </form>
 
         <!-- Appointment Cards -->
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
@@ -29,7 +40,29 @@
             </div>
             
         </div>
+        <!-- teachers -->
+        <div class="container mx-auto">
+            <h1 class="text-2xl font-bold mt-8 mb-4">Available teachers</h1>
+            <div class="max-h-96 overflow-y-auto">
+                <% teachers.forEach(teacher => { %>
+                    <div class="bg-white shadow-lg p-4 rounded-lg mb-4">
+                        <h3 class="text-lg font-semibold text-gray-800"><%= teacher.name %> </h3>
+                        <h3><p class="text-sm text-gray-500 mt-1">Subject: <%= teacher.subject %></p></h3>
+                        <p class="text-sm text-gray-500 mt-1">TeacherID: <%= teacher.id %></p>
+                        
+                        <!-- Add additional teacher information as needed -->
+                    </div>
+                <% }); %>
+            </div>
+        </div>
+        <!-- button for appointment request -->
+        <div class="mt-8 text-center">
+            <a href="/request-appointment" class="inline-block bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Request Appointment</a>
+        </div>
     </div>
+
+
+
 </body>
 
 </html>

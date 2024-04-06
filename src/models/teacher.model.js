@@ -15,7 +15,12 @@ const teacherSchema = new mongoose.Schema(
             type: String,
             required: true,
             unique: true,
-            lowercase: true,
+        },
+
+        id:{
+            type:String, 
+            required:true,
+            unique:true,
         },
         
         subject:{
@@ -27,7 +32,6 @@ const teacherSchema = new mongoose.Schema(
             type: String,
             required: true,
             unique:true,
-            lowercase:true,
         },
         password:{
             type:String,
