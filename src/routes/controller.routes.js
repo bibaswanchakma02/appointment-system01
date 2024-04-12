@@ -7,12 +7,14 @@ const studentLogin = require('../controllers/student.login')
 const logout = require('../controllers/logout')
 const createAppointment = require('../controllers/appointment.request');
 const teacherLogin = require('../controllers/teacher.login');
+const approve_appointment = require('../controllers/approve.appointment')
 
 //signup_controller routes
 router.route('/studentsignup').post(studentSignup);
 router.route('/teachersignup').post(teacherSignup);
 router.route('/studentsignin').post(studentLogin);
-router.route('/teachersignin').post(teacherLogin)
+router.route('/teachersignin').post(teacherLogin);
+router.route('/approve-appointment/:appointmentId').get(approve_appointment);
 
 //logout route
 router.route('/logout').get(logout);

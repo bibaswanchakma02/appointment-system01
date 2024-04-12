@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router();
-const studentModel = require('../models/student.model')
 const teacherModel = require('../models/teacher.model')
+const appointment = require('../models/appointment.model')
 const isAuth = require('../controllers/user.authentication')
 //views routes
 router.get('/', (req, res,next)=>{
@@ -27,12 +27,16 @@ router.get('/teachersignup', (req, res)=>{
 router.get('/studentdashboard',isAuth, async (req,res)=>{
     const studentData = req.session.user;
     const teachers = await teacherModel.find();
-    res.render('studentdashboard', {student: studentData, teachers : teachers});
+    const approvedAppointments = await appointment.find({status: 'approved'})
+    res.render('studentdashboard', {student: studentData, teachers : teachers, approvedappointment: approvedAppointments});
+
 })
 
 router.get('/teacherdashboard',isAuth, async (req,res)=>{
+    const pendingappointments = await appointment.find({status : 'pending'})
+    const approvedAppointments = await appointment.find({status: 'approved'})
     const teacherData = req.session.user;
-    res.render('teacherdashboard', {teacher:teacherData});
+    res.render('teacherdashboard', {teacher:teacherData, appointments: pendingappointments, approvedappointment: approvedAppointments});
 })
 
 router.get('/request-appointment', (req,res)=>{

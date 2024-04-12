@@ -1,4 +1,5 @@
 // import mongoose, {Schema} from mongoose;
+const { type } = require('express/lib/response');
 const mongoose = require('mongoose');
 
 const appointments = new mongoose.Schema(
@@ -8,6 +9,15 @@ const appointments = new mongoose.Schema(
             required: true,
         },
         studentID:{
+            type: String,
+            required: true,
+        },
+
+        studentName:{
+            type: String,
+            required: true,
+        },
+        teacherName:{
             type: String,
             required: true,
         },

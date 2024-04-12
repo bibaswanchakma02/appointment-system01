@@ -13,6 +13,39 @@
             top: 1rem;
             right: 1rem;
         }
+        .appointment-card {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .appointment-card h2 {
+            margin-top: 0;
+            color: #333;
+        }
+        .appointment-card p {
+            margin: 5px 0;
+            color: #666;
+        }
+        .btn-container {
+            margin-top: 10px;
+        }
+        .btn {
+            margin-right: 10px;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .btn-approve {
+            background-color: #28a745;
+            color: #fff;
+        }
+        .btn-decline {
+            background-color: #dc3545;
+            color: #fff;
+        }
     </style>
 </head>
 
@@ -24,22 +57,18 @@
         </form>
 
         <!-- Appointment Cards -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-            <!-- Card 1 -->
-            
-            <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                <div class="px-6 py-4">
-                    
-                    <h2 class="text-xl font-bold mb-2">Appointment 1</h2>
-                    <p class="text-gray-600">Student : <%= student.username %> </p>
-                    <p class="text-gray-600">Email: <%= student.email %></p>
-                    <p class="text-gray-600">Date: 2024-03-15</p>
-                    <p class="text-gray-600">Time: 10:00 AM</p>
-                
+        <h1 class="text-2xl font-bold mt-8 mb-4">Appointments</h1>
+        <div class="appointment-cards">
+            <% approvedappointment.forEach(appointment => { %>
+                <div class="appointment-card">
+                    <h2>Appointment with <%= appointment.teacherName%></h2>
+                    <p>Date: <%= appointment.date %></p>
+                    <p>Time: <%= appointment.time %></p>
+                    <p>Message: <%= appointment.message %></p>
                 </div>
-            </div>
-            
+            <% }); %>
         </div>
+    </div>
         <!-- teachers -->
         <div class="container mx-auto">
             <h1 class="text-2xl font-bold mt-8 mb-4">Available teachers</h1>
@@ -50,7 +79,7 @@
                         <h3><p class="text-sm text-gray-500 mt-1">Subject: <%= teacher.subject %></p></h3>
                         <p class="text-sm text-gray-500 mt-1">TeacherID: <%= teacher.id %></p>
                         
-                        <!-- Add additional teacher information as needed -->
+                        
                     </div>
                 <% }); %>
             </div>

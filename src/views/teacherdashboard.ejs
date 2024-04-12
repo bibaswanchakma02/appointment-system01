@@ -6,48 +6,97 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Teacher Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .logout-button {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+        }
+        .appointment-card {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .appointment-card h2 {
+            margin-top: 0;
+            color: #333;
+        }
+        .appointment-card p {
+            margin: 5px 0;
+            color: #666;
+        }
+        .btn-container {
+            margin-top: 10px;
+        }
+        .btn {
+            margin-right: 10px;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .btn-approve {
+            background-color: #28a745;
+            color: #fff;
+        }
+        .btn-decline {
+            background-color: #dc3545;
+            color: #fff;
+        }
+    </style>
 </head>
 
 <body class="bg-gray-100">
     <div class="container mx-auto py-8">
         <h1 class="text-3xl font-bold text-center mb-8"> Welcome <%= teacher.name %></h1>
+        <form action="/logout" method="get" class="logout-button">
+            <button type="submit" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md">Logout</button>
+        </form>
 
         <!-- Appointment Cards -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-            <!-- Card 1 -->
-            <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                <div class="px-6 py-4">
-                    <h2 class="text-xl font-bold mb-2">Appointment 1</h2>
-                    <p class="text-gray-600">Student: Alice Johnson</p>
-                    <p class="text-gray-600">Subject: Mathematics</p>
-                    <p class="text-gray-600">Date: 2024-03-15</p>
-                    <p class="text-gray-600">Time: 10:00 AM</p>
+        <h1 class="text-2xl font-bold mt-8 mb-4">Appointment Requests</h1>
+        <hr>
+        <div class="appointment-cards">
+            <% appointments.forEach(appointment => { %>
+                <div class="appointment-card">
+                    <h2>Appointment with <%= appointment.studentName%></h2>
+                    <p>Date: <%= appointment.date %></p>
+                    <p>Time: <%= appointment.time %></p>
+                    <p>Message: <%= appointment.message %></p>
+                    <div class="btn-container">
+                        <button class="btn btn-approve" onclick="approveAppointment('<%= appointment._id %>')">Approve</button>
+                        <button class="btn btn-decline" onclick="declineAppointment('<%= appointment._id %>')">Decline</button>
+                    </div>
                 </div>
-            </div>
-
-            <!-- Card 2 -->
-            <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                <div class="px-6 py-4">
-                    <h2 class="text-xl font-bold mb-2">Appointment 2</h2>
-                    <p class="text-gray-600">Student: Bob Smith</p>
-                    <p class="text-gray-600">Subject: Science</p>
-                    <p class="text-gray-600">Date: 2024-03-16</p>
-                    <p class="text-gray-600">Time: 11:00 AM</p>
+            <% }); %>
+        </div>
+        <h1 class="text-2xl font-bold mt-8 mb-4">Confirmed Appointments</h1>
+        <hr>
+        <div class="appointment-cards">
+            <% approvedappointment.forEach(appointment => { %>
+                <div class="appointment-card">
+                    <h2>Appointment with <%= appointment.studentName%></h2>
+                    <p>Date: <%= appointment.date %></p>
+                    <p>Time: <%= appointment.time %></p>
+                    <p>Message: <%= appointment.message %></p>
                 </div>
-            </div>
-
-            <!-- Card 3 -->
-            <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                <div class="px-6 py-4">
-                    <h2 class="text-xl font-bold mb-2">Appointment 3</h2>
-                    <p class="text-gray-600">Student: Charlie Brown</p>
-                    <p class="text-gray-600">Subject: English</p>
-                    <p class="text-gray-600">Date: 2024-03-17</p>
-                    <p class="text-gray-600">Time: 2:00 PM</p>
-                </div>
-            </div>
+            <% }); %>
         </div>
     </div>
+
+    <script>
+         function approveAppointment(appointmentId) {
+            // Redirect to the approval route with the appointment ID
+            window.location.href = `/approve-appointment/${appointmentId}`;
+        }
+
+        function declineAppointment(appointmentId) {
+            // Redirect to the decline route with the appointment ID
+            window.location.href = `/decline-appointment/${appointmentId}`;
+        }
+    </script>
 </body>
 
 </html>
