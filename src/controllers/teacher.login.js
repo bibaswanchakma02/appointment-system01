@@ -17,10 +17,10 @@ const teacherLogin = async(req,res)=>{
         if(existingUser && passwordMatch){
             req.session.user = existingUser
             req.session.isAuth = true
-            res.status(200).redirect('/teacherdashboard') ; 
+            res.status(200).json({message: "login successful!"}) ; 
             
         }else{
-            res.send("Inavalid Username or Password").status(401)
+            res.status(401).json({message: 'Invalid username or password! Please try again.'})
         }
         
     } catch (error) {

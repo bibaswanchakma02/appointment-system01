@@ -1,5 +1,5 @@
 // import mongoose, {Schema} from mongoose;
-const { type } = require('express/lib/response');
+// const { type } = require('express/lib/response');
 const mongoose = require('mongoose');
 
 const appointments = new mongoose.Schema(
@@ -22,12 +22,12 @@ const appointments = new mongoose.Schema(
             required: true,
         },
         date:{
-            type:Date,
+            type:String,
             required:true,
         },
         time:{
-            type: Date,
-            required:true,
+            type: String,
+            required:true
         },
         message:{
             type: String

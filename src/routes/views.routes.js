@@ -29,8 +29,16 @@ router.get('/teachersignup', (req, res)=>{
 router.get('/studentdashboard',isAuth, async (req,res)=>{
     const studentData = req.session.user;
     const teachers = await teacherModel.find();
-    const approvedAppointments = await appointment.find({ $and: [{ studentID: studentData.id }, { status: 'approved' }] })
-    res.render('studentdashboard', {student: studentData, teachers : teachers, approvedappointment: approvedAppointments});
+    const approvedAppointments = await appointment.find({$and: [{ studentID: studentData.id }, { status: 'approved' }] })
+    const declinedAppointments = await appointment.find({$and: [{ studentID: studentData.id }, { status: 'declined' }]})
+    const pendingAppointments  = await appointment.find({$and: [{ studentID: studentData.id }, { status: 'pending' }]})
+    res.render('studentdashboard', {
+        student: studentData, 
+        teachers : teachers, 
+        approvedappointment: approvedAppointments, 
+        declinedAppointment : declinedAppointments,
+        pendingappointment : pendingAppointments
+     });
 
 })
 

@@ -56,6 +56,38 @@
                     class="font-medium text-indigo-600 hover:text-indigo-500">Sign up</a></p>
         </div>
     </div>
+
+    <script>
+        document.querySelector('form').addEventListener('submit', async function(){
+            event.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            const response = await fetch('/studentsignin', {
+                method: 'POST',
+                headers:{
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    username: username,
+                    password: password
+                })
+            }).then(response =>{
+                if(response.ok){
+                    return response.json();
+                }else{
+                    return response.json().then(data=>{
+                        throw new Error(data.message)
+                    })
+                }
+            }).then(data=>{
+                window.location.href = '/studentdashboard';
+            }).catch(error=>{
+                alert('Invalid credentials! Please try again.');
+            })
+        })
+    </script>
 </body>
 
 </html>

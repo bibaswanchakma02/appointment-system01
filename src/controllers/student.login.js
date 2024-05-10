@@ -19,10 +19,10 @@ const studentLogin = async(req,res)=>{
         if(existingUser && passwordMatch){
             req.session.user = existingUser ;
             req.session.isAuth = true;
-            res.status(200).redirect('/studentdashboard')
+            res.status(201).json({message: 'Login Successful!'})
             
         }else{
-            res.send("Inavalid Username or Password").status(401)
+            res.status(401).json({message: 'Invalid username or password! Please try again.'})
         }
         
     } catch (error) {

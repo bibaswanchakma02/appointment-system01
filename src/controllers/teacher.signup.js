@@ -2,7 +2,7 @@ const teacher = require('../models/teacher.model')
 const bcrypt = require('bcryptjs');
 
 const teacherSignup = async(req, res) => {
-    const {username, name,id, email ,subject, password, } = req.body;
+    const {username, name,teacherId, email ,subject, password, } = req.body;
     try {
         //check for existing user
         const existingUser = await teacher.findOne({ $or: [{ email }, { username }] });
@@ -18,15 +18,14 @@ const teacherSignup = async(req, res) => {
             {
                 "username" : username, 
                 "name":name,
-                "id":id,
+                "id": teacherId,
                 "email": email, 
-                "subject":subject,
-                "password" :hashedPassword,
+                "subject": subject,
+                "password" : hashedPassword,
             });
             
         await newTeacher.save();
-        res.redirect('/teacherlogin');
-        // console.log(req.body);
+        res.status(201).json({message: "Registration Successful"})
     } catch (error) {
         console.error(error);
         res.status(500).send('Internal Server Error');

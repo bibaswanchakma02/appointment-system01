@@ -6,6 +6,7 @@ const controllerRouter = require('./routes/controller.routes')
 const bodyParser = require('body-parser')
 const session = require('express-session')
 const MongoDBSession = require('connect-mongodb-session')(session)
+
 const store = new MongoDBSession({
     uri:`${process.env.MONGODB_URI}`,
     collection: "mySessions",

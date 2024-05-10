@@ -7,9 +7,9 @@ const approve_appointment = async (req,res) =>{
         const approve = await appointment.findByIdAndUpdate(appointmentId,{status: 'approved'}, {new: true})
 
         if(approve){
-            res.status(200).redirect('/teacherdashboard');
+            res.status(201).redirect('/teacherdashboard');
         }else{
-            res.status(400).send('Appointment not found');
+            res.status(401).send('Appointment not found');
         }
 
     } catch (error) {

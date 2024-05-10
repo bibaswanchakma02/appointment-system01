@@ -12,7 +12,7 @@
         <h2 class="text-center text-3xl font-extrabold text-gray-900">Sign up</h2>
 
         <!-- Sign Up Form -->
-        <form class="mt-8 space-y-6" action="/teachersignup" method="POST">
+        <form class="mt-8 space-y-6" action="/teachersignup" method="POST" id="signup-form">
             <div class="rounded-md shadow-sm -space-y-px">
                 <div>
                     <label for="username" class="sr-only">Username</label>
@@ -39,7 +39,7 @@
                         placeholder="Email address">
                 </div>
                 <div>
-                    <label for="subject" class="sr-only">Username</label>
+                    <label for="subject" class="sr-only">Subject</label>
                     <input id="subject" name="subject" type="text" autocomplete="subject" required
                         class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                         placeholder="Subject">
@@ -81,4 +81,48 @@
     </div>
 </body>
 
+    <script>
+            document.querySelector('#signup-form').addEventListener('submit', async function(event){
+            console.log('form submitted');
+            event.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const name = document.getElementById('name').value;
+            const teacherId = document.getElementById('id').value;
+            const email = document.getElementById('email-address').value;
+            const subject = document.getElementById('subject').value;
+            const password = document.getElementById('password').value;
+           
+            const response = await fetch('/teachersignup',{
+                method:'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    username: username,
+                    name: name,
+                    teacherId: teacherId,
+                    email: email,
+                    subject: subject,
+                    password: password
+                })
+            }).then(response =>{
+                if(response.ok){
+                    return response.json();
+                }else{
+                    return response.json().then(data=>{
+                        throw new Error(data.message)
+                    })
+                }
+            })
+            .then(data => {
+                alert(data.message);
+                window.location.href = '/teacherlogin'
+            })
+            .catch(error=>{
+                console.log(error);
+                alert("Error. Please try again later")
+            })
+        })
+    </script>
 </html>

@@ -94,5 +94,46 @@
             <button type="submit" class="form-submit w-full">Submit</button>
         </form>
     </div>
+
+   <script>
+        document.querySelector('form').addEventListener('submit', async function(event){
+            event.preventDefault();
+
+            const teacherId = document.getElementById('teacherId').value;
+            const studentId = document.getElementById('studentId').value;
+            const date = document.getElementById('date').value;
+            const time = document.getElementById('time').value;
+            const message = document.getElementById('message').value;
+        
+            const response = await fetch('/appointment-request', {
+                method: 'POST',
+                headers:{
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    teacherId: teacherId,
+                    studentId: studentId,
+                    date: date,
+                    time: time,
+                    message : message
+                })
+            }).then(response=>{
+                if(response.ok){
+                    return response.json();
+                }else{
+                    return response.json().then(data=>{
+                        throw new Error(data.message)
+                    })
+                }
+            }).then(data=>{
+                alert(data.message);
+                window.location.href = '/studentdashboard'
+            })
+            .catch(error=>{
+                console.log(error);
+                alert("Error. Please try again later")
+            })
+        })
+   </script>
 </body>
 </html>
