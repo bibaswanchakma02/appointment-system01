@@ -1,15 +1,15 @@
 const express = require('express')
 const router = express.Router();
 
-const studentSignup = require('../controllers/student.signup')
-const teacherSignup = require('../controllers/teacher.signup')
-const studentLogin = require('../controllers/student.login')
+const studentSignup = require('../controllers/student/student.signup')
+const teacherSignup = require('../controllers/teacher/teacher.signup')
+const studentLogin = require('../controllers/student/student.login')
 const logout = require('../controllers/logout')
-const createAppointment = require('../controllers/appointment.request');
-const teacherLogin = require('../controllers/teacher.login');
-const approve_appointment = require('../controllers/approve.appointment')
-const decline_appointment = require('../controllers/decline.appointment');
-const delete_appointment = require('../controllers/delete.appointment');
+const createAppointment = require('../controllers/student/appointment.request');
+const teacherLogin = require('../controllers/teacher/teacher.login');
+const approve_appointment = require('../controllers/teacher/approve.appointment')
+const decline_appointment = require('../controllers/teacher/decline.appointment');
+const delete_appointment = require('../controllers/student/delete.appointment');
 
 //signup_controller routes
 router.route('/studentsignup').post(studentSignup);

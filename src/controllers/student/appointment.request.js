@@ -1,6 +1,6 @@
-const appointment = require('../models/appointment.model')
-const student = require('../models/student.model');
-const teacher = require('../models/teacher.model');
+const appointment = require('../../models/appointment.model')
+const student = require('../../models/student.model');
+const teacher = require('../../models/teacher.model');
 const moment = require('moment');
 
 

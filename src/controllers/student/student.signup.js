@@ -1,4 +1,4 @@
-const student = require('../models/student.model')
+const student = require('../../models/student.model')
 const bcrypt = require('bcryptjs');
 
 const studentSignup = async(req, res) => {

@@ -1,4 +1,4 @@
-const appointment = require('../models/appointment.model')
+const appointment = require('../../models/appointment.model')
 
 const approve_appointment = async (req,res) =>{
     const appointmentId = req.params.appointmentId;

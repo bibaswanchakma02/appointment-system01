@@ -1,4 +1,4 @@
-const appointment = require('../models/appointment.model')
+const appointment = require('../../models/appointment.model')
 
 const delete_appointment = async(req,res)=>{
     const appointmentId = req.params.appointmentId
