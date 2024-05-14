@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router();
 const teacherModel = require('../models/teacher.model')
+const studentModel = require('../models/student.model')
 const appointment = require('../models/appointment.model')
 const isAuth = require('../controllers/user.authentication')
 
@@ -9,6 +10,11 @@ const isAuth = require('../controllers/user.authentication')
 router.get('/', (req, res,next)=>{
     res.render('index');
 })
+
+router.get('/adminlogin', (req,res)=>{
+    res.render('adminlogin')
+})
+
 
 router.get('/studentlogin', (req, res)=>{
     res.render('studentlogin');
@@ -25,6 +31,24 @@ router.get('/teacherlogin', (req, res)=>{
 router.get('/teachersignup', (req, res)=>{
     res.render('teachersignup');
 } )
+
+router.get('/admindashboard',isAuth, async(req,res)=>{
+    const admin = req.session.username;
+    const teachers = await teacherModel.find(); 
+    const students = await studentModel.find();
+    const teacher_Signup_requests = await teacherModel.find({status: 'pending'})
+    const student_Signup_requests = await studentModel.find({status: 'pending'})
+    const declined_teachers = await teacherModel.find({status: 'declined'})
+    const declined_students = await studentModel.find({status: 'declined'})
+    res.render('admindashboard',{
+        pendingteachers: teacher_Signup_requests,
+        pendingstudents: student_Signup_requests,
+        declinedteachers: declined_teachers,
+        declinedstudents: declined_students,
+        teachers: teachers,
+        students: students,
+    })
+})
 
 router.get('/studentdashboard',isAuth, async (req,res)=>{
     const studentData = req.session.user;

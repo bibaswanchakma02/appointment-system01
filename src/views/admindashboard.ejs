@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles for logout button */
+        .logout-button {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+        }
+        .appointment-card {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .appointment-card h2 {
+            margin-top: 0;
+            color: #333;
+        }
+        .appointment-card p {
+            margin: 5px 0;
+            color: #666;
+        }
+        .btn-container {
+            margin-top: 10px;
+        }
+        .btn {
+            margin-right: 10px;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .btn-approve {
+            background-color: #28a745;
+            color: #fff;
+        }
+        .btn-decline {
+            background-color: #dc3545;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100">
+    <div class="container mx-auto py-8">
+        <h1 class="text-3xl font-bold text-center mb-8"> Welcome admin</h1>
+        <form action="/logout" method="get" class="logout-button">
+            <button type="submit" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md">Logout</button>
+        </form>
+
+        <!--Pending Requests Cards -->
+        <h1 class="text-2xl font-bold mt-8 mb-4">Pending Requests</h1>
+        <div class="appointment-cards">
+            <% pendingteachers.forEach(teacher => { %> 
+                <div class="appointment-card">
+                    <h2>Name:  <%= teacher.name%></h2>
+                    <p>TeacherID: <%= teacher.id %></p>
+                    <p>Email: <%= teacher.email %></p>
+                    <p>Subject: <%= teacher.subject %></p>
+                </div>
+                <div class="btn-container">
+                    <button class="btn btn-approve" onclick="approveUser('<%= teacher._id %>')">Approve</button>
+                    <button class="btn btn-decline" onclick="declineUser('<%= teacher._id %>')">Decline</button>
+                </div>
+            <% }); %>
+        </div>
+        <div class="appointment-cards">
+            <% pendingstudents.forEach(student => { %> 
+                <div class="appointment-card">
+                    <h2>Name:  <%= student.name%></h2>
+                    <p>StudentID: <%= student.id %></p>
+                    <p>Email: <%= student.email %></p>
+                    <div class="btn-container">
+                        <button class="btn btn-approve" onclick="approveUser('<%= student._id %>')">Approve</button>
+                        <button class="btn btn-decline" onclick="declineUser('<%= student._id %>')">Decline</button>
+                    </div>
+                </div>
+                
+            <% }); %>
+        </div>
+
+
+        <!-- Declined Requests -->
+        <h1 class="text-2xl font-bold mt-8 mb-4">Declined Requests</h1>
+        <div class="appointment-cards">
+            <% declinedteachers.forEach(teacher => { %> 
+                <div class="appointment-card">
+                    <h2>Name:  <%= teacher.name%></h2>
+                    <p>TeacherID: <%= teacher.id %></p>
+                    <p>Email: <%= teacher.email %></p>
+                    <p>Subject: <%= teacher.subject %></p>
+                </div>
+            <% }); %>
+        </div>
+        <div class="appointment-cards">
+            <% declinedstudents.forEach(student => { %> 
+                <div class="appointment-card">
+                    <h2>Name:  <%= student.name%></h2>
+                    <p>StudentID: <%= student.id %></p>
+                    <p>Email: <%= student.email %></p>
+                </div>
+            <% }); %>
+        </div>
+
+    </div>
+        
+    <!-- teachers -->
+        <div class="container mx-auto">
+            <h1 class="text-2xl font-bold mt-8 mb-4">Teachers</h1>
+            <div class="max-h-96 overflow-y-auto">
+                <% teachers.forEach(teacher => { %>
+                    <div class="bg-white shadow-lg p-4 rounded-lg mb-4">
+                        <h3 class="text-lg font-semibold text-gray-800"><%= teacher.name %> </h3>
+                        <h3><p class="text-sm text-gray-500 mt-1">Subject: <%= teacher.subject %></p></h3>
+                        <p class="text-sm text-gray-500 mt-1">TeacherID: <%= teacher.id %></p>
+                        <p class="text-sm text-gray-500 mt-1">Email : <%= teacher.email %></p> 
+                        
+                    </div>
+                <% }); %>
+            </div>
+        </div>
+
+        <!-- students -->
+        <div class="container mx-auto">
+            <h1 class="text-2xl font-bold mt-8 mb-4">Students</h1>
+            <div class="max-h-96 overflow-y-auto">
+                <% students.forEach(student => { %>
+                    <div class="bg-white shadow-lg p-4 rounded-lg mb-4">
+                        <h3 class="text-lg font-semibold text-gray-800"><%= student.name %> </h3>
+                        <p class="text-sm text-gray-500 mt-1">Student ID: <%= student.id %></p>
+                        <p class="text-sm text-gray-500 mt-1">Email : <%= student.email %></p>
+                        
+                        
+                    </div>
+                <% }); %>
+            </div>
+        </div>
+    </div>
+
+
+<script>
+        function approveUser(studentId) {
+            // Redirect to the decline route with the appointment ID
+            window.location.href = `/approve-registration/${studentId}`;
+        }
+</script>
+</body>
+
+</html>

@@ -1,6 +1,6 @@
 
 const mongoose = require('mongoose');
-const DB_NAME = require('../constants');
+const {DB_NAME} = require('../constants');
 const { urlencoded } = require('express');
 // import mongoose from "mongoose";
 // import { DB_NAME }  from "../constants.js";
