@@ -12,11 +12,14 @@ const decline_appointment = require('../controllers/teacher/decline.appointment'
 const delete_appointment = require('../controllers/student/delete.appointment');
 const admin_login = require('../controllers/admin/admin.login');
 const {approve_teacher_registration, approve_student_registration} = require('../controllers/admin/approve.registration')
+const{decline_student_registration,decline_teacher_registration} = require('../controllers/admin/decline.registration')
 
 //admin routes
 router.route('/adminsignin').post(admin_login)
 router.route('/approve-registration/:studentId').get(approve_student_registration)
 router.route('/approve-registration/:teacherId').get(approve_teacher_registration)
+router.route('/decline-registration/:teacherId').get(decline_teacher_registration)
+router.route('/decline-registration/:studentId').get(decline_student_registration)
 
 //signup_controller routes
 router.route('/studentsignup').post(studentSignup);
